@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
+    <title>Unity EventManager 2.0 c parametrlerі</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href=" style.css">
+    <link rel="stylesheet" href=" responsive.css">
+</head>
+<style>
+    .cookie-banner {
+        position: fixed;
+        display: flex;
+        bottom: 40px;
+        left: 10%;
+        right: 10%;
+        width: 80%;
+        padding: 15px 15px;
+        align-items: start;
+        justify-content: space-between;
+        background-color: #eee;
+        border-radius: 5px;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+    }
+
+    .close-cookie {
+        height: 20px;
+        width: 40px;
+        background-color: #d5d5d5;
+        border: none;
+        color: #000000;
+        border-radius: 2px;
+        cursor: pointer;
+        opacity: 1 !important;
+    }
+
+    .cookie-banner p {
+        padding: 10px;
+    }
+
+</style>
+<body>
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand">
+                <h2><a>Domino</a></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <div class="menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Басты бет</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="blog.html">Мақалалар</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+                            <li class="nav-item"><a class="nav-link" href="policy.html">Құпиялылық саясаты</a></li>
+                            <li class="nav-item"><a class="nav-link" href="terms.html">Шарттар мен ережелер</a></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="bg-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bg-text" style="background: url('./assets/images/sean-do-z09meqdm3u4-unsplash.jpg'); background-size: cover;">
+                        <h3>Unity EventManager 2.0 c parametrlerі</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="blog-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-post-area-style">
+<!--                        <div class="post-image mb-3">-->
+<!--                            <img src="./assets/images/sean-do-z09meqdm3u4-unsplash.jpg" class="img-fluid">-->
+<!--                        </div>-->
+                        <div class="text">
+                            <strong></strong><p><span></span></p><div><div><div><div></div><div><div></div><div></div></div></div></div></div><p><span>Menі sұrady pro </span><span></span><a>қarapayym menedgher oқiғalardyң Unity</a><span>retіnde beruge әr tүrlі parametrlerіn sany, al-gholdyң yңғaysyz. Ghalpy, bұl mysal, eger bіreuge kerek eken — onda mіne sәl ghaқsartylғan nұsқasy:</span></p><blockquote><span>using UnityEngine;<br>using UnityEngine.Events; <br>using System.Collections.Generic; <br>using System; <br></span></blockquote><blockquote><span>public class EventManager : MonoBehaviour {<br> [Serializable]<br> public class GameEvent : UnityEvent&lt;object[]&gt; { };<br> private static EventManager _instance;<br> private Dictionary&lt;string, GameEvent&gt; _eventDictionary;<br></span></blockquote><blockquote><span> void Awake () {<br> if (_instance != null)<br> return;<br> _instance = GetComponent&lt;EventManager&gt; ();<br> if (_eventDictionary == null)<br> _eventDictionary = new Dictionary&lt;string, GameEvent&gt; ();<br> } <br><br><br>public static void Subscribe (string eventName, UnityAction&lt;object[]&gt; listener) {<br> GameEvent thisEvent;<br> if (_instance._eventDictionary.TryGetValue (eventName, out thisEvent)) thisEvent.AddListener (listener);<br> else {<br> thisEvent = new GameEvent ();<br> thisEvent.AddListener (listener);<br> _instance._eventDictionary.Add (eventName, thisEvent);<br> }<br>}<br><br>public static void Unsubscribe (string eventName, UnityAction&lt;object[]&gt; listener) {<br> if (_instance == null)<br> return;<br> GameEvent thisEvent;<br> if (_instance._eventDictionary.TryGetValue (eventName, out thisEvent)) <br> thisEvent.RemoveListener (listener);<br>}<br><br> public static void SendEvent (string eventName, params object[] parameters) {<br> GameEvent thisEvent;<br> if (_instance._eventDictionary.TryGetValue (eventName, out thisEvent)) { <br> thisEvent.Invoke (parameters);<br> } <br> } <br></span></blockquote><blockquote><span>}</span></blockquote><p><span></span></p><p><span>Endі sany parametrlerіnің dinamikalyқ ghәne kez kelgen tүrdegі. Қarapayym өzara іs-қimyl, әbden rabotosposobno. Қoldanu mysaly:</span></p><blockquote><span>void OnEnable () { <br> EventManager.Subscribe ("event_name", MyFunction); <br>} <br><br> void OnDisable () { <br> EventManager.Unsubscribe ("event_name", MyFunction);<br> } <br><br>void MyFunction (object[] parameters) { <br> Debug.Log (parameters.Length); <br> Debug.Log (parameters[1]); <br>}</span></blockquote><p><span>__________________________________________________________________________________________</span></p><p><span>Soңғy ghaңartu osy ghәne basқa da baptarynyң, sіz menің blog </span><span></span><a> </a></p><p><span>Kelіңіzder үshіn ghіberіp bіrdeme</span></p><div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-bg">
+                        <p style="color: #fff; text-align: center; margin: 52.15px 0; font-size: 18px;">Copyright ©<script>document.write(new Date().getFullYear())</script></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<div class='cookie-banner'>
+    <p>
+        Сайт "cookie" файлдарын пайдаланады. Олар мүмкіндік береді білу үшін, сіз туралы ақпаратты алу және сіздің пайдаланушы тәжірибесі.Жалғастырып жүргенін, мен келісемін пайдалану арқылы "cookie" файлдарын иесі сайта сәйкес  <a target="_blank" href="https://en.wikipedia.org/wiki/HTTP_cookie">Саясатқа cookie</a>
+    </p>
+    <button class='close-cookie'>&times;</button>
+</div>
+<script>
+    window.onload = function () {
+        $('.close-cookie').click(function () {
+            $('.cookie-banner').fadeOut();
+        })
+    }
+</script>
+<script>
+    let elems = document.querySelectorAll('.server-name');
+    elems.forEach((elem) => {
+        elem.innerHTML = window.location.hostname
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>
